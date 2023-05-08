@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  mongo: 
+    image: mvertes/alpine-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - .docker/mongodb:/var/lib/mongodb
+  api:
+    depends_on:
+      - mongo
+    restart: always
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .docker/api:/app/card-generator-api
